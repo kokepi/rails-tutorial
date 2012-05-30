@@ -14,5 +14,11 @@ class PagesController < ApplicationController
     @title = 'About'
     @desc = 'This is the about page for sample app'
   end
+  
+  def help
+    @title = 'Help'
+    @desc = 'This is the help  page for sample app'
+  end
+
 
 end

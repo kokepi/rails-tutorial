@@ -3,12 +3,51 @@
 <head>
   <title>SampleApp</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
 
-<%= yield %>
+  <div class="container">
+    <div class="header row">
+      <div class="span8">
+        <h1><%= link_to image_tag('http://k.jyutaku-search.net/images/logo.gif', :alt => "sample app", :class => "round"), root_path %></h1>
+      </div>
+      <div class="span4">
+        <ul class="nav nav-pills">
+          <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+          <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+          <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Sign in", "#" %></li>
+        </ul>
+      </div>
+    </div><!-- /header -->
+    <div class="section">
+      <%= yield %>
+    </div<!-- /section -->
+    <div class="footer">
+      
+      <div class="navbar">
+        <div class="navbar-inner">
+          <div class="container">
+            <ul class="nav">
+              <li><%= link_to "About", about_path %></li>
+              <li><%= link_to "Contact", contact_path %></li>
+              <li><%= link_to content_tag(:i, '', :class => "icon-globe icon-white") + " Others", 'http://www.google.com/' %></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /footer -->
+
+  </div<!-- /container -->
+
+
+
+
+
 
 </body>
 </html>
