@@ -17,8 +17,10 @@ describe PagesController do
   end
 
   describe "GET 'about'" do
-    subject { { :get => '/pages/about' } }
-    it { should route_to :controller => 'pages', :action => 'about' }
+    it "should be successful" do
+      get 'about'
+      response.should be_success
+    end
   end
 
 end
