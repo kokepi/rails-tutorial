@@ -1,1 +1,14 @@
-<%= @user.name %>
+<div class="row">
+  <div class="span8">
+    <h1><%= @user.name %></h1>
+  </div>
+  <div class="span4">
+    <div class="well">
+      <ul>
+        <li><strong>Name</strong>: <%= @user.name %></li>
+        <li><strong>URL</strong>: <%= link_to user_url(@user), @user %></li>
+      </ul>
+    </div>
+   </div> 
+</div>
+
