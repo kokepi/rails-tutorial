@@ -4,7 +4,7 @@
   <title><%= @title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all" %>
-  <%= stylesheet_link_tag    "http://bootswatch.com/united/bootstrap.css", :media => "all" %>
+  <%= stylesheet_link_tag    "http://bootswatch.com/amelia/bootstrap.min.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
@@ -14,7 +14,7 @@
   <div class="container">
     <div class="header row">
       <div class="span8">
-        <h1><%= link_to image_tag('http://k.jyutaku-search.net/images/logo.gif', :alt => "sample app", :class => "round"), root_path %></h1>
+        <h1><%= link_to 'Pumitter', root_path %></h1>
       </div>
       <div class="span4">
         <ul class="nav nav-pills">
