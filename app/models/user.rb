@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   validates :password,
     :presence => true,
     :confirmation => true,
-    :length => { :within => 4..50 }
+    :length => { :within => 2..50 }
 
   def has_password?(submitted_password)
     encrypted_password == encrypt(submitted_password)
