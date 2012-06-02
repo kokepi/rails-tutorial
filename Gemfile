@@ -22,12 +22,14 @@ end
 
 group :development do
   gem 'rspec-rails', '2.10.1'
+#  gem 'annotate-models', '1.0.2'
 end
 
 group :test do
   gem 'rspec', '2.10.0'
   gem 'webrat', '0.7.1'
   gem 'spork', '0.9.1'
+  gem 'factory_girl_rails', '1.0'
 end
 
 

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SampleApp</title>
+  <title><%= @title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all" %>
+  <%= stylesheet_link_tag    "http://bootswatch.com/united/bootstrap.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
@@ -24,8 +25,16 @@
       </div>
     </div><!-- /header -->
     <div class="section">
+      <% if flash.any? -%>
+        <div id="" class="alert alert-success">
+          <a href="#" id="" class="close">x</a> 
+          <% flash.each do |key ,value| -%>
+            <div id="" class="flash <%= key %>"><%= value %></div>
+          <% end -%>
+        </div>
+      <% end -%>
       <%= yield %>
-    </div<!-- /section -->
+    </div><!-- /section -->
     <div class="footer">
       
       <div class="navbar">
@@ -42,7 +51,8 @@
 
     </div><!-- /footer -->
 
-  </div<!-- /container -->
+    <%= debug(params) if Rails.env.development? %>
+    </div><!-- /container -->
 
 
 
