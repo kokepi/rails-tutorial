@@ -13,40 +13,37 @@
 
   <div class="container">
     <div class="header row">
-      <div class="span8">
+      <div class="span7">
         <h1><%= link_to 'Pumitter', root_path %></h1>
       </div>
-      <div class="span4">
+      <div class="span5">
         <ul class="nav nav-pills">
           <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+          <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
           <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Sign in", "#" %></li>
+          <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Login", signin_path %></li>
         </ul>
       </div>
     </div><!-- /header -->
     <div class="section">
       <% if flash.any? -%>
-        <div id="" class="alert alert-success">
-          <a href="#" id="" class="close">x</a> 
-          <% flash.each do |key ,value| -%>
-            <div id="" class="flash <%= key %>"><%= value %></div>
-          <% end -%>
-        </div>
+        <% flash.each do |key ,value| -%>
+          <div id="" class="flash alert alert-<%= key %>">
+            <a href="#" id="" class="close">x</a> 
+            <p><%= value %></p>
+          </div>
+        <% end -%>
       <% end -%>
       <%= yield %>
     </div><!-- /section -->
     <div class="footer">
       
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li><%= link_to "About", about_path %></li>
-              <li><%= link_to "Contact", contact_path %></li>
-              <li><%= link_to content_tag(:i, '', :class => "icon-globe icon-white") + " Others", 'http://www.google.com/' %></li>
-            </ul>
-          </div>
-        </div>
+      <div class="subnav">
+        <ul class="nav nav-pills">
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact", contact_path %></li>
+          <li><%= link_to content_tag(:i, '', :class => "icon-globe icon-white") + " Others", 'http://www.google.com/' %></li>
+        </ul>
       </div>
 
     </div><!-- /footer -->
