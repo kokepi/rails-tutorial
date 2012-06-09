@@ -35,6 +35,7 @@
     </div>
     <div class="form-actions">
       <%= f.submit "Sign up", :class => "btn btn-primary" %>
+      <p class="help-block">Already a user? <%= link_to "Login here!", signin_path %></p>
     </div>
   </fieldset>
 <% end %>

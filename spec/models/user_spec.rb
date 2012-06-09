@@ -67,7 +67,7 @@ describe User do
     end
 
     it "should reject short password" do
-      short_pw_user = User.new(@attr.merge(:password => "aaa", :password_confirmation => "aaa"))
+      short_pw_user = User.new(@attr.merge(:password => "a", :password_confirmation => "a"))
       short_pw_user.should_not be_valid
     end
 

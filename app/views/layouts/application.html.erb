@@ -4,7 +4,7 @@
   <title><%= @title %></title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all" %>
-  <%= stylesheet_link_tag    "http://bootswatch.com/united/bootstrap.css", :media => "all" %>
+  <%= stylesheet_link_tag    "http://bootswatch.com/amelia/bootstrap.min.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 
@@ -13,40 +13,46 @@
 
   <div class="container">
     <div class="header row">
-      <div class="span8">
-        <h1><%= link_to image_tag('http://k.jyutaku-search.net/images/logo.gif', :alt => "sample app", :class => "round"), root_path %></h1>
+      <div class="span6">
+        <h1><%= link_to 'Pumitter', root_path %></h1>
       </div>
-      <div class="span4">
-        <ul class="nav nav-pills">
-          <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Sign in", "#" %></li>
+      <div class="span6">
+        <ul class="nav pull-right nav-pills">
+          <% if signed_in? -%>
+            <li><%= link_to "hi, " + current_user[:name], user_path(current_user)  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Logout", signout_path %></li>
+          <% else %>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Login", signin_path %></li>
+          <% end -%>
+
         </ul>
       </div>
     </div><!-- /header -->
     <div class="section">
       <% if flash.any? -%>
-        <div id="" class="alert alert-success">
-          <a href="#" id="" class="close">x</a> 
-          <% flash.each do |key ,value| -%>
-            <div id="" class="flash <%= key %>"><%= value %></div>
-          <% end -%>
-        </div>
+        <% flash.each do |key ,value| -%>
+          <div id="" class="flash alert alert-<%= key %>">
+            <a href="#" id="" class="close">x</a> 
+            <p><%= value %></p>
+          </div>
+        <% end -%>
       <% end -%>
       <%= yield %>
     </div><!-- /section -->
     <div class="footer">
       
-      <div class="navbar">
-        <div class="navbar-inner">
-          <div class="container">
-            <ul class="nav">
-              <li><%= link_to "About", about_path %></li>
-              <li><%= link_to "Contact", contact_path %></li>
-              <li><%= link_to content_tag(:i, '', :class => "icon-globe icon-white") + " Others", 'http://www.google.com/' %></li>
-            </ul>
-          </div>
-        </div>
+      <div class="subnav">
+        <ul class="nav nav-pills">
+          <li><%= link_to "About", about_path %></li>
+          <li><%= link_to "Contact", contact_path %></li>
+          <li><%= link_to content_tag(:i, '', :class => "icon-globe icon-white") + " Others", 'http://www.google.com/' %></li>
+        </ul>
       </div>
 
     </div><!-- /footer -->
