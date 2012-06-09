@@ -13,15 +13,24 @@
 
   <div class="container">
     <div class="header row">
-      <div class="span7">
+      <div class="span6">
         <h1><%= link_to 'Pumitter', root_path %></h1>
       </div>
-      <div class="span5">
-        <ul class="nav nav-pills">
-          <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
-          <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Login", signin_path %></li>
+      <div class="span6">
+        <ul class="nav pull-right nav-pills">
+          <% if signed_in? -%>
+            <li><%= link_to "hi, " + current_user[:name], user_path(current_user)  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Logout", signout_path %></li>
+          <% else %>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Login", signin_path %></li>
+          <% end -%>
+
         </ul>
       </div>
     </div><!-- /header -->

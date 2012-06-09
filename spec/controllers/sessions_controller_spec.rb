@@ -12,7 +12,7 @@ describe SessionsController do
 
   describe 'POST "create"' do
 
-    describe 'widh invalid email and password' do
+    describe 'with invalid email and password' do
 
       before(:each) do
         @attr = { :email => "email@example.com", :password => "invalid" }
@@ -30,6 +30,27 @@ describe SessionsController do
       end
 
     end
+
+    describe 'with invalid email and password' do
+
+      before(:each) do
+        @user = Factory(:user)
+        @attr = { :email => @user.email, :password => "invalid" }
+      end
+
+      it "should be current_user = nil" do
+        post :create, :session => @attr
+        controller.current_user.should == nil
+        controller.signed_in?.should_not be_true
+      end
+
+      it 'should have a flash alert-error message' do
+        post :create, :session => @attr
+        flash[:error] .should_not be_nil
+      end
+    
+    end
+
 
     describe 'with valid email and password' do
 
@@ -54,6 +75,15 @@ describe SessionsController do
         flash[:success].should_not be_nil
       end
 
+    end
+  end
+
+  describe 'DELETE "destroy"' do
+    it 'should sign out a user' do
+      test_sign_in(Factory(:user))
+      delete :destroy
+      controller.signed_in?.should_not be_true
+      response.should redirect_to(root_path)
     end
   end
 end
