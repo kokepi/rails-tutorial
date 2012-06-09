@@ -33,6 +33,11 @@ group :test do
 end
 
 
+group :production, :staging do
+  gem "pg"
+end
+
+
 gem 'jquery-rails'
 
 # To use ActiveModel has_secure_password
