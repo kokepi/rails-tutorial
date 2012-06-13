@@ -6,6 +6,7 @@
   <%= stylesheet_link_tag    "http://twitter.github.com/bootstrap/assets/css/bootstrap.css", :media => "all" %>
   <%= stylesheet_link_tag    "http://bootswatch.com/amelia/bootstrap.min.css", :media => "all" %>
   <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag "http://twitter.github.com/bootstrap/assets/js/bootstrap-alert.js"  %>
   <%= csrf_meta_tags %>
 
 </head>
@@ -20,9 +21,8 @@
         <ul class="nav pull-right nav-pills">
           <% if signed_in? -%>
             <li><%= link_to "hi, " + current_user[:name], user_path(current_user)  %></li>
-            <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
-            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " About", about_path %></li>
             <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Settings", edit_user_path(current_user) %></li>
             <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Logout", signout_path %></li>
           <% else %>
             <li><%= link_to content_tag(:i,'', :class => 'icon-home') + " Home", root_path  %></li>
