@@ -46,13 +46,16 @@ Spork.prefork do
 end
 
 Spork.each_run do
+  require 'factory_girl_rails'
+  #FactoryGirl.factories.clear
+  #FactoryGirl.reload
+
   # This code will be run each time you run your specs.
   silence_warnings do
     Dir[Rails.root.join('app/**/*.rb')].each do |file|
       load file
     end
   end
-  FactoryGirl.reload
 end
 
 # --- Instructions ---

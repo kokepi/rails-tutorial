@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_filter :authenticate, :only => [ :edit,:update ]
+  before_filter :owner_only, :only => [ :edit,:update ]
 
   def new
     @user = User.new
@@ -7,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @title = 'user: ' + @user.name
+    @title = 'User: ' + @user.name
   end
 
   def create
@@ -21,4 +23,34 @@ class UsersController < ApplicationController
       render 'new'
     end
   end
+
+  def edit
+    @title = "Edit user: " + @user.name
+  end
+  def update
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Profile updated"
+      redirect_to @user
+    else
+      @title = "Edit user: " + @user.name
+      flash[:error] = "Something wrong. Try again."
+      render "edit"
+    end
+  end
+
+  private
+
+  def authenticate
+    deny_access unless signed_in?
+  end
+  def owner_only
+    @user = User.find(params[:id])
+    if current_user?(@user)
+      @owner = @user
+    else
+      redirect_to(root_path, :notice => "You can't access that page. The action was logged for security.") 
+    end
+  end
+
+
 end
