@@ -21,7 +21,7 @@
         <ul class="nav pull-right nav-pills">
           <% if signed_in? -%>
             <li><%= link_to "hi, " + current_user[:name], user_path(current_user)  %></li>
-            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Help", help_path %></li>
+            <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Users", users_path %></li>
             <li><%= link_to content_tag(:i,'', :class => 'icon-asterisk') + " Settings", edit_user_path(current_user) %></li>
             <li><%= link_to content_tag(:i,'', :class => 'icon-off') + " Logout", signout_path %></li>
           <% else %>

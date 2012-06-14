@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [ :edit,:update ]
+  before_filter :authenticate, :only => [ :edit,:update,:index ]
   before_filter :owner_only, :only => [ :edit,:update ]
 
   def new
@@ -10,6 +10,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @title = 'User: ' + @user.name
+  end
+
+  def index
+    @title = "All users"
+    @users = User.all
   end
 
   def create
