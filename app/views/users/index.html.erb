@@ -1,5 +1,7 @@
 <h1>All users</h1>
 
+<%= page_navigation_links(@users) %>
+
 <ul>
   <% @users.each do |user| -%>
     <li>
@@ -8,3 +10,5 @@
     </li>
   <% end -%>
 </ul>
+
+<%= page_navigation_links(@users) %>
