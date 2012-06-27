@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_filter :authenticate, :only => [ :edit,:update,:index ]
+  before_filter :authenticate, :only => [ :edit,:update,:index,:destroy ]
   before_filter :owner_only, :only => [ :edit,:update ]
+  before_filter :admin_only, :only => :destroy
 
   def new
     @user = User.new
@@ -43,6 +44,12 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    User.find(params[:id]).destroy
+    flash[:success] = "The user deleted."
+    redirect_to users_path
+  end
+
   private
 
   def authenticate
@@ -56,6 +63,8 @@ class UsersController < ApplicationController
       redirect_to(root_path, :notice => "You can't access that page. The action was logged for security.") 
     end
   end
-
+  def admin_only
+    redirect_to(root_path) unless current_user.admin?
+  end
 
 end
