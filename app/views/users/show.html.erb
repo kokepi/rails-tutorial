@@ -4,12 +4,21 @@
       <%= gravatar_image_tag @user.email %>
       <%= @user.name %>
     </h1>
+
+    <% unless @user.microposts.empty? -%>
+      <%= render @microposts %>
+      <%= page_navigation_links(@microposts) %>
+    <% end -%>
+
+
+
   </div>
   <div class="span4">
     <div class="well">
       <ul>
         <li><strong>Name</strong>: <%= @user.name %></li>
         <li><strong>URL</strong>: <%= link_to user_url(@user), @user %></li>
+        <li><strong>Tweet</strong>: <%= @user.microposts.count %></li>
       </ul>
     </div>
    </div> 
