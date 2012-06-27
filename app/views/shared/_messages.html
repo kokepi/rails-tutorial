@@ -1,11 +1,11 @@
-<% if @user.errors.any? %>
+<% if messages.errors.any? %>
   <div id="error_explanation" class="alert alert-error alert-block">
     <a href="#" id="" class="close">x</a>
-    <h4 id=""><%= @user.errors.count.to_s %>箇所エラーがありました。再度入力してください</h4>
+    <h4 id=""><%= messages.errors.count.to_s %>箇所エラーがありました。再度入力してください</h4>
     <ul>
-      <% @user.errors.full_messages.each do |msg| -%>
+      <% messages.errors.full_messages.each do |msg| -%>
         <li><%= msg %></li>
-      <% end -%>
+        <% end -%>
     </ul>
 
   </div>  

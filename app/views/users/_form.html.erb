@@ -1,6 +1,4 @@
-<h1>Sign up</h1>
-<p>these are sign up forms.</p>
-
+!!OBSOLETE!!
 
 <%= form_for(@user, :html => {:class => "form-horizontal"}) do |f| %>  
   <%= render(:partial => 'shared/messages', :object => f.object ) %>
@@ -34,8 +32,15 @@
       </div>
     </div>
     <div class="form-actions">
-      <%= f.submit "Sign up", :class => "btn btn-primary" %>
-      <p class="help-block">Already a user? <%= link_to "Login here!", signin_path %></p>
+      <% if controller.action_name == 'new' -%>
+        <%= f.submit "Sign up", :class => "btn btn-primary" %>
+        <p class="help-block">Already a user? <%= link_to "Login here!", signin_path %></p>
+      <% elsif controller.action_name == 'edit' -%>
+        <%= f.submit "Save changes", :class => "btn btn-primary" %>
+      <% else -%>
+        <%= f.submit "Can't save..", :class => "btn disabled " %>
+        <p class="help-block"><%= controller.action_name %></p>
+      <% end -%>
     </div>
   </fieldset>
 <% end %>
