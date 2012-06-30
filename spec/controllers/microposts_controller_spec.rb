@@ -22,12 +22,20 @@ describe MicropostsController do
 
     describe 'failure' do
       before(:each) do
-        @attr = { :contents => ""}
+        @attr = { :content => ""}
       end
       it 'should not create a mp' do
         lambda do 
           post :create, :micropost => @attr
         end.should_not change(Micropost, :count)
+      end
+      it 'should have a flash error message' do
+        post :create, :micropost => @attr
+        flash[:error].should_not be_blank
+      end
+      it 'should redirect_to home' do
+        post :create, :micropost => @attr
+        response.should redirect_to root_path
       end
     end
     describe 'success' do
@@ -42,6 +50,10 @@ describe MicropostsController do
       it 'should have a flash message' do
         post :create, :micropost => @attr
         flash[:success].should_not be_blank
+      end
+      it 'should redirect_to home' do
+        post :create, :micropost => @attr
+        response.should redirect_to root_path
       end
     end
 
