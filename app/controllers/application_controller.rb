@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :signed_in?, :current_user
+  helper_method :signed_in?, :current_user, :current_user?
 
   def current_user=(user)
     @current_user = user

@@ -13,9 +13,9 @@
       </div>
     <% end -%>
 
-    <% unless current_user.microposts.empty? -%>
-      <%= render @microposts %>
-      <%= page_navigation_links(@microposts) %>
+    <% unless current_user.feed.empty? -%>
+      <%= render(:partial => 'shared/feed_item', :collection => @feed_items) %>
+      <%= page_navigation_links(@feed_items) %>
     <% end -%>
 
   </div>
