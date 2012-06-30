@@ -153,8 +153,23 @@ describe User do
       [@mp1, @mp2].each do |mp|
         Micropost.find_by_id(mp.id).should be_nil
       end
-
     end
+
+    describe 'feeds' do
+      it 'shoud have a feed' do
+        @user.should respond_to(:feed)
+      end
+      it 'should include users mp' do
+        @user.feed.include?(@mp1).should be_true
+        @user.feed.include?(@mp2).should be_true
+      end
+      it 'should not include unrelevant micropost' do
+        mp3 = Factory(:micropost, :user => Factory(:user, :email => Factory.next(:email)))
+        @user.feed.include?(mp3).should be_false
+      end
+    end
+
+
   end
 
 end
