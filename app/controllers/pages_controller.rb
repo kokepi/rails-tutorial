@@ -3,6 +3,10 @@ class PagesController < ApplicationController
   def home
     @title = 'Home'
     @desc = 'This is the home page for sample app'
+    if signed_in?
+      @micropost = Micropost.new
+      @microposts = current_user.microposts.paginate(:page => params[:page])
+    end
   end
 
   def contact
