@@ -1,0 +1,21 @@
+<div class="row well" style="margin-left:0px;">
+  <div class="span1">
+    <%= link_to gravatar_for(feed_item.user), feed_item.user %>
+  </div>
+  <div class="span6">
+    <% if current_user?(feed_item.user) -%>
+      <div class="tweet-action pull-right">
+        <%= link_to "X", feed_item, :method => :delete, :confirm => "Sure?", :title => "Delete this post" %> 
+      </div>
+    <% end -%>
+    <div class="tweet-user">
+      <%= link_to feed_item.user.name, feed_item.user %>
+    </div>
+    <div class="tweet-content">
+      <%= feed_item.content %>
+    </div>
+    <div class="tweet-timestamp pull-right">
+      Posted <%= time_ago_in_words(feed_item.created_at) %> ago.
+    </div>
+  </div>
+</div>

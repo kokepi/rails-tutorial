@@ -1,16 +1,6 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :sign_in, :signed_in?, :current_user
-
-  def sign_in(user)
-    cookies.permanent.signed[:remember_token] = [user.id, user.salt]
-    current_user = user
-  end
-
-  def sign_out
-    cookies.delete(:remember_token)
-    current_user = nil
-  end
+  helper_method :signed_in?, :current_user, :current_user?
 
   def current_user=(user)
     @current_user = user
@@ -22,8 +12,20 @@ class ApplicationController < ActionController::Base
     user == current_user
   end
 
+  def sign_in(user)
+    cookies.permanent.signed[:remember_token] = [user.id, user.salt]
+    current_user = user
+  end
+  def sign_out
+    cookies.delete(:remember_token)
+    current_user = nil
+  end
   def signed_in?
     !current_user.nil?
+  end
+
+  def authenticate
+    deny_access unless signed_in?
   end
 
   def deny_access

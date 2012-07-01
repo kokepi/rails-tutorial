@@ -51,11 +51,9 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+
   private
 
-  def authenticate
-    deny_access unless signed_in?
-  end
   def owner_only
     @user = User.find(params[:id])
     if current_user?(@user)

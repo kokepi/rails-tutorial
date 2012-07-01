@@ -1,3 +1,36 @@
+<% if signed_in? -%>
+<div class="row">
+  <div class="span8">
+    <h1>Whats up?</h1>
+
+    <%= form_for(@micropost, :html => {:class => "well"} ) do |f| %>
+      <%= render 'shared/messages', :messages => f.object %>
+      <div class="controls">
+        <%= f.text_area :content, :class => "input-xlarge", :style => "width:95%", :rows => 2, :placeholder => "What's up?" %>
+      </div>
+      <div class="form-actions" style="padding:5px; margin:5px;">
+        <%= f.submit "Tweet", :class => "btn btn-large pull-right" %>
+      </div>
+    <% end -%>
+
+    <% unless current_user.feed.empty? -%>
+      <%= render(:partial => 'shared/feed_item', :collection => @feed_items) %>
+      <%= page_navigation_links(@feed_items) %>
+    <% end -%>
+
+  </div>
+  <div class="span4">
+    <div class="well">
+      <ul>
+        <li><strong>Name</strong>: <%= current_user.name %></li>
+        <li><strong>URL</strong>: <%= link_to user_url(current_user), current_user %></li>
+        <li><strong>Tweet</strong>: <%= current_user.microposts.count %></li>
+      </ul>
+    </div>
+   </div> 
+</div>
+
+<% else %>
 <div class="hero-unit">
   <h1>Pages#home</h1>
   <p>Find me in app/views/pages/home.html.erb</p>
@@ -5,4 +38,5 @@
     <%= link_to "Sign up now!", signup_path, :class => "btn btn-primary btn-large"%>
   </p>
 </div>
+<% end -%>
 
