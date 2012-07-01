@@ -10,9 +10,16 @@ class User < ActiveRecord::Base
   has_many :user_relationships,
     :foreign_key => "follower_id",
     :dependent => :destroy
-  has_many :following,
+  has_many :followings,
     :through => :user_relationships,
     :source => :followed
+  has_many :reverse_user_relationships,
+    :foreign_key => "followed_id",
+    :class_name => "UserRelationship",
+    :dependent => :destroy
+  has_many :followers,
+    :through => :reverse_user_relationships,
+    :source => :follower
   email_regex = /^[\w+\-\.]+@[a-z\d\-.]+\.[a-z]+$/i
 
   # これが単純なモデルと振る舞いを変えている
@@ -55,6 +62,10 @@ class User < ActiveRecord::Base
 
   def follow!(followed)
     user_relationships.create!(:followed_id => followed.id)
+  end
+
+  def unfollow!(followed)
+    user_relationships.find_by_followed_id(followed).destroy
   end
 
   private
