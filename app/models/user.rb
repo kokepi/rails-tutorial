@@ -1,8 +1,18 @@
 require 'digest'
 class User < ActiveRecord::Base
   attr_accessor :password
-  attr_accessible :email, :name, :password, :password_confirmation
-  has_many :microposts, :dependent => :destroy
+  attr_accessible :email,
+    :name,
+    :password,
+    :password_confirmation
+  has_many :microposts,
+    :dependent => :destroy
+  has_many :user_relationships,
+    :foreign_key => "follower_id",
+    :dependent => :destroy
+  has_many :following,
+    :through => :user_relationships,
+    :source => :followed
   email_regex = /^[\w+\-\.]+@[a-z\d\-.]+\.[a-z]+$/i
 
   # これが単純なモデルと振る舞いを変えている
@@ -37,6 +47,14 @@ class User < ActiveRecord::Base
 
   def feed
     Micropost.where("user_id = ?", id)
+  end
+
+  def following?(followed)
+    user_relationships.find_by_followed_id(followed)
+  end
+
+  def follow!(followed)
+    user_relationships.create!(:followed_id => followed.id)
   end
 
   private

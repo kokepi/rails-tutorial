@@ -1,3 +1,4 @@
+# coding: utf-8
 require 'spec_helper'
 
 describe User do
@@ -169,7 +170,33 @@ describe User do
       end
     end
 
+  end
 
+  describe 'relationships' do
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+    it 'should have a user_relationsihps method' do
+      @user.should respond_to( :user_relationships )
+    end
+    it 'should have a following method' do
+      @user.should respond_to( :following )
+    end
+    it 'following?メソッドがあること' do
+      @user.should respond_to( :following? )
+    end
+    it 'follow！メソッドがあること' do
+      @user.should respond_to( :follow! )
+    end
+    it 'follow!で他のユーザをフォローできること' do
+      @user.follow!(@followed)
+      @user.following?(@followed).should be_true
+    end
+    it 'following配列に、フォローしたユーザーを含んでいること' do
+      @user.follow!(@followed)
+      @user.following.should include(@followed)
+    end
   end
 
 end
