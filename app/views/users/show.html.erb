@@ -1,9 +1,32 @@
 <div class="row">
   <div class="span8">
-    <h1>
-      <%= gravatar_image_tag @user.email %>
-      <%= @user.name %>
-    </h1>
+    <div class="well">
+      <h1>
+        <%= gravatar_image_tag @user.email %>
+        <%= @user.name %>
+      </h1>
+      <% unless current_user?(@user) -%>
+        <div class="follow-form">
+          <% if current_user.following?(@user) -%>
+            <%= form_for current_user.user_relationships.find_by_followed_id(@user), :html => {:method => :delete } do |f| -%>
+              <%= f.hidden_field :followed_id %>
+              <div class="">
+                <%= f.submit "Unfollow", :class => "btn" %>
+              </div>
+
+            <% end -%>
+          <% else -%>
+            <%= form_for( current_user.user_relationships.build(:followed_id => @user.id)) do |f| -%>
+              <%= f.hidden_field :followed_id %>
+              <div class="">
+                <%= f.submit "Follow", :class => "btn btn-success" %>
+              </div>
+            <% end -%>
+
+          <% end -%>
+        </div><!-- /.follow-form -->
+      <% end -%>
+    </div><!-- /.well -->
 
     <% unless @user.microposts.empty? -%>
       <%= render @microposts %>
@@ -21,6 +44,6 @@
         <li><strong>Tweet</strong>: <%= @user.microposts.count %></li>
       </ul>
     </div>
-   </div> 
+  </div> 
 </div>
 

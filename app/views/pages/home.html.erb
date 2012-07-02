@@ -25,6 +25,8 @@
         <li><strong>Name</strong>: <%= current_user.name %></li>
         <li><strong>URL</strong>: <%= link_to user_url(current_user), current_user %></li>
         <li><strong>Tweet</strong>: <%= current_user.microposts.count %></li>
+        <li><strong>Follows</strong>: <%= current_user.followings.count %></li>
+        <li><strong>Followed</strong>: <%= current_user.followers.count %></li>
       </ul>
     </div>
    </div> 
