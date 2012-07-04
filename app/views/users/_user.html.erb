@@ -1,0 +1,10 @@
+    <div class="row">
+      <div class="span">
+        <%= gravatar_for user, :size => 30 %>
+        <%= link_to user.name, user %>
+      </div>
+      <% if current_user.admin? -%>
+        <div class="pull-right"><%= link_to "delete", user, :method => :delete, :confirm => "Sure?" %></div>
+      <% end -%>
+    </div>
+ 
