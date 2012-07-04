@@ -8,21 +8,9 @@
       <% unless current_user?(@user) -%>
         <div class="follow-form">
           <% if current_user.following?(@user) -%>
-            <%= form_for current_user.user_relationships.find_by_followed_id(@user), :html => {:method => :delete } do |f| -%>
-              <%= f.hidden_field :followed_id %>
-              <div class="">
-                <%= f.submit "Unfollow", :class => "btn" %>
-              </div>
-
-            <% end -%>
+            <%= render("shared/button_unfollow") %>
           <% else -%>
-            <%= form_for( current_user.user_relationships.build(:followed_id => @user.id)) do |f| -%>
-              <%= f.hidden_field :followed_id %>
-              <div class="">
-                <%= f.submit "Follow", :class => "btn btn-success" %>
-              </div>
-            <% end -%>
-
+            <%= render("shared/button_follow") %>
           <% end -%>
         </div><!-- /.follow-form -->
       <% end -%>
@@ -37,13 +25,7 @@
 
   </div>
   <div class="span4">
-    <div class="well">
-      <ul>
-        <li><strong>Name</strong>: <%= @user.name %></li>
-        <li><strong>URL</strong>: <%= link_to user_url(@user), @user %></li>
-        <li><strong>Tweet</strong>: <%= @user.microposts.count %></li>
-      </ul>
-    </div>
-  </div> 
+    <%= render(:partial => "shared/user_stats" ) %>
+ </div> 
 </div>
 

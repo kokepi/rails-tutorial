@@ -1,0 +1,16 @@
+<% @user ||= current_user %>
+<div class="well">
+  <ul>
+    <li><strong>Name</strong>: <%= @user.name %></li>
+    <li><strong>URL</strong>: <%= link_to user_url(@user), @user %></li>
+    <li><strong>Tweet</strong>: <span id="stats-tweet"><%= @user.microposts.count %></span></li>
+    <li>
+      <strong>Follows</strong>: 
+      <a href="<%= followings_user_path(@user) %>"><span id="stats-follows"><%= @user.followings.count %></span></a>
+    </li>
+    <li>
+      <strong>Followed</strong>: 
+      <a href="<%= followers_user_path(@user) %>"><span id="stats-followed"><%= @user.followers.count %></span></a>
+    </li>
+    </ul>
+  </div>
