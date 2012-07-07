@@ -1,0 +1,3 @@
+$("follow-form").update("<%= escape_javascript(render("users/button_unfollow")) %>")
+$("stats-followers").update("<%= "#{@user.followers.count}" %>")
+
