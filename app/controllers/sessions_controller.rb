@@ -6,8 +6,8 @@ class SessionsController < ApplicationController
   def create
     @user = User.authenticate(params[:session][:email], params[:session][:password])
     if @user.nil?
-      flash.now[:error] = "Email and Password don't match."
-      render 'new'
+      flash[:error] = "Email and Password don't match."
+      redirect_to signin_path
     else
       sign_in @user 
       flash[:success] = "Thank you for visit again."

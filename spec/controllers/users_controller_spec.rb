@@ -246,4 +246,17 @@ describe UsersController do
     end
   end
 
+  describe 'follower pages' do
+    describe 'when not signed_in' do
+      it 'should deny access for followings page' do
+        get :followings, :id => 1
+        response.should redirect_to(signin_path)
+      end
+      it 'should deny access for followers page' do
+        get :followers, :id => 1 
+        response.should redirect_to(signin_path)
+      end
+    end
+  end
+
 end

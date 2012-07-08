@@ -1,6 +1,7 @@
+# coding: utf-8
 require 'spec_helper'
 
-describe User do
+describe "Userモデル" do
 
   before(:each) do
     @attr = {
@@ -136,6 +137,7 @@ describe User do
       @user.should be_admin
     end
   end
+
   describe 'micropost associations' do
     before(:each) do
       @user = User.create(@attr)
@@ -169,7 +171,51 @@ describe User do
       end
     end
 
+  end
 
+  describe 'user_relationshipsモデルとの関係において' do
+    before(:each) do
+      @user = User.create!(@attr)
+      @followed = Factory(:user)
+    end
+    it 'user_relationshipsにアクセスできること' do
+      @user.should respond_to( :user_relationships )
+    end
+    it 'user_relationshipsを通じてfollowingsにアクセスできること' do
+      @user.should respond_to( :followings )
+    end
+    it 'following?メソッドがあること' do
+      @user.should respond_to( :following? )
+    end
+    it 'follow！メソッドがあること' do
+      @user.should respond_to( :follow! )
+    end
+    it 'follow!で他のユーザをフォローできること' do
+      @user.follow!(@followed)
+      @user.following?(@followed).should be_true
+    end
+    it 'followings配列に、フォローしたユーザーを含んでいること' do
+      @user.follow!(@followed)
+      @user.followings.should include(@followed)
+    end
+    it 'unfollow!メソッドがあること' do
+      @followed.should respond_to( :unfollow! )
+    end
+    it 'unfollow!メソッドでunfollowできること' do
+      @user.follow!(@followed)
+      @user.unfollow!(@followed)
+      @user.following?(@followed).should be_false
+    end
+    it 'reverse_user_relationshipsにアクセスできること' do
+      @user.should respond_to( :reverse_user_relationships )
+    end
+    it 'reverse_user_relationshipsを通じてfollowersにアクセスできること' do
+      @user.should respond_to( :followers )
+    end
+    it 'followers配列に、フォローされたユーザーが含まれること' do
+      @user.follow!(@followed)
+      @followed.followers.should include(@user)
+    end
   end
 
 end

@@ -20,14 +20,8 @@
 
   </div>
   <div class="span4">
-    <div class="well">
-      <ul>
-        <li><strong>Name</strong>: <%= current_user.name %></li>
-        <li><strong>URL</strong>: <%= link_to user_url(current_user), current_user %></li>
-        <li><strong>Tweet</strong>: <%= current_user.microposts.count %></li>
-      </ul>
-    </div>
-   </div> 
+    <%= render(:partial => 'shared/user_stats') %>
+  </div> 
 </div>
 
 <% else %>
