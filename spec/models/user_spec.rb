@@ -137,6 +137,7 @@ describe "Userモデル" do
       @user.should be_admin
     end
   end
+
   describe 'micropost associations' do
     before(:each) do
       @user = User.create(@attr)
